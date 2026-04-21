@@ -188,16 +188,8 @@ pub fn clear_message(letters: &[RefLetter], message: String) -> Option<String> {
             continue
         }
 
-        let cp = c as u32;
-
-        // 1. SKIP INVISIBLE TRAPS & FORMATTING
-        // U+200C (ZWNJ), U+200D (ZWJ), U+200E/F (Direction marks), U+FEFF (BOM)
-        if (0x2000..=0x200F).contains(&cp) || cp == 0xFEFF || cp == 0x061C {
-            continue; 
-        }
-
-        // 2. HANDLE MACRO-SYMBOLS (Like the Bismillah)
-        if cp == 0xFDFD {
+        // HANDLE MACRO-SYMBOLS (Like the Bismillah)
+        if c as u32 == 0xFDFD {
             // I can just skip it or rewrite it..
             cleared_string.push_str("بسم الله الرحمن الرحيم");
             continue;
@@ -226,6 +218,11 @@ fn is_removable(c: char) -> bool {
         '\u{0653}'..='\u{065F}' | 
         '\u{0670}'              |
         '\u{06DC}'              |
+
+        // U+200C (ZWNJ), U+200D (ZWJ), U+200E/F (Direction marks), U+FEFF (BOM)
+        '\u{2000}'..='\u{200F}' |
+        '\u{FEFF}'              |
+        '\u{061C}'              |
         // 2. Tatweel (Kashida)
         'ـ'                     | 
         // 3. Arabic Punctuation
