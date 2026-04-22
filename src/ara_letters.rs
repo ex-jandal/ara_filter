@@ -183,20 +183,29 @@ pub fn clear_message(letters: &[RefLetter], message: String) -> Option<String> {
     let mut cleared_string = String::with_capacity(message.len());
 
     for c in message.chars() {
+        match c {
+            // Some workaround for Alif
+            'آ' | '|' => {
+                cleared_string.push('ا');
+                continue;
+            },
+            '(' | ')' | '{' | '}' | 
+            '[' | ']' | '<' | '>' => {
+                cleared_string.push(' ');
+                continue;
+            },
+            // HANDLE MACRO-SYMBOLS (Like the Bismillah)
+            '\u{FDFD}' => {
+                // I can just skip but i want to rewrite it..
+                cleared_string.push_str("بسم الله الرحمن الرحيم");
+                continue;
+            },
+            _ => ()
+        }
+
         // Skip Unneeded Characters
         if is_removable(c) {
             continue
-        }
-
-        if c == 'آ' {
-            cleared_string.push('ا');
-            continue;
-        }
-        // HANDLE MACRO-SYMBOLS (Like the Bismillah)
-        if c as u32 == 0xFDFD {
-            // I can just skip it or rewrite it..
-            cleared_string.push_str("بسم الله الرحمن الرحيم");
-            continue;
         }
 
         let replacement = if let Some(found_letter) = letters.iter().find(|l| l.character == c) {
