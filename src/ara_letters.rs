@@ -30,7 +30,7 @@ pub fn all_letters() -> [Vec<Arc<Letter>>; 2] {
         }
     }
 
-    let mut fake_letters = Vec::with_capacity(168);
+    let mut fake_letters = Vec::with_capacity(221);
     for cp in 0x0671..=0x06D5 {
         if let Some(c) = char::from_u32(cp) {
             let parent_char = match c {
@@ -111,40 +111,60 @@ pub fn all_letters() -> [Vec<Arc<Letter>>; 2] {
             if let Some(c) = char::from_u32(cp) {
                 let parent_char = match c {
                     // Alif variants
-                    'ﺂ' | 'ﺄ' | 'ﺎ' | 'ﺃ' | 'ﺇ' => Some('ا'),
+                    'ﺂ' | 'ﺄ' | 'ﺎ' | 'ﺃ' | 'ﺇ' | 'ﺍ' | 'ٱ' => Some('ا'),
                     
-                    // Ba / Ta / Tha / Noon / Ya (The "Teeth" family)
-                    'ﺐ' | 'ﺒ' | 'ﺏ' => Some('ب'),
+                    // Ba / Ta / Tha / Noon / Ya
+                    'ﺐ' | 'ﺒ' | 'ﺏ' | 'ﺑ' => Some('ب'),
                     'ﺖ' | 'ﺘ' | 'ﺕ' | 'ﺗ' => Some('ت'),
+                    'ﺚ' | 'ﺜ' | 'ﺙ' | 'ﺛ' => Some('ث'),
+                    'ﻦ' | 'ﻨ' | 'ﻥ' | 'ﻧ'| 'ﮞ' => Some('ن'),
+                    'ﻲ' | 'ﻰ' | 'ﻴ' | 'ﺌ' | 'ﻳ' | 'ﻱ' => Some('ي'),
                     'ﺔ' | 'ﺓ' => Some('ة'),
-                    'ﻦ' | 'ﻨ' | 'ﻥ' | 'ﻧ' => Some('ن'),
-                    'ﻲ' | 'ﻰ' | 'ﻴ' | 'ﺌ' | 'ﻳ' => Some('ي'),
                     
                     // Jeem / Ha / Kha
                     'ﺝ' | 'ﺠ' | 'ﺞ' | 'ﺟ' => Some('ج'),
                     'ﺣ' | 'ﺤ' | 'ﺢ' | 'ﺡ' => Some('ح'),
-                    'ﺥ' | 'ﺨ' | 'ﺦ' => Some('خ'),
+                    'ﺥ' | 'ﺨ' | 'ﺦ' | 'ﺧ' => Some('خ'),
+
+                    // Dal / Thal
+                    'ﺩ' | 'ﺪ' | 'ﺫ' | 'ﺬ' => Some('د'), 
+
+                    // Ra / Zay
+                    'ﺭ' | 'ﺮ' | 'ﺯ' | 'ﺰ' => Some('ر'),
+
+                    // Seen / Sheen
+                    'ﺱ' | 'ﺴ' | 'ﺲ' | 'ﺳ' => Some('س'),
+                    'ﺵ' | 'ﺸ' | 'ﺶ' | 'ﺷ' => Some('ش'),
+
+                    // Sad / Dad
+                    'ﺹ' | 'ﺼ' | 'ﺺ' | 'ﺻ' => Some('ص'),
+                    'ﺽ' | 'ﻀ' | 'ﺾ' | 'ﺿ' => Some('ض'),
+
+                    // Taa / Zaa
+                    'ﻂ' | 'ﻄ' | 'ﻃ' | 'ﻁ' => Some('ط'),
+                    'ﻇ' | 'ﻈ' | 'ﻆ' | 'ﻅ' => Some('ظ'),
                     
-                    // Ain / Ghain / Signs
+                    // Ain / Ghain
                     'ﻋ' | 'ﻌ' | 'ﻊ' | 'ﻉ' => Some('ع'),
-                    'ﻏ' | 'ﻐ' | 'ﻎ' => Some('غ'),
+                    'ﻏ' | 'ﻐ' | 'ﻎ' | 'ﻍ' => Some('غ'),
                     
-                    // Kaf / Lam
-                    'ﻚ' | 'ﻜ' | 'ﻙ' | 'ﯖ' | 'ﮝ' => Some('ك'),
-                    'ﻂ' => Some('ط'),
-                    'ﻇ' => Some('ظ'),
+                    // Fa / Qaf
+                    'ﻑ' | 'ﻔ' | 'ﻒ' | 'ﻓ' => Some('ف'),
+                    'ﻕ' | 'ﻘ' | 'ﻖ' | 'ﻗ' => Some('ق'),
+
+                    // Kaf / Gaf / Lam
+                    'ﻚ' | 'ﻜ' | 'ﻙ' | 'ﻛ' | 'ﯖ' | 'ﮝ' | 'ﮏ' | 'ﮐ' => Some('ك'),
                     'ڵ' | 'ﻝ' | 'ﻠ' | 'ﻟ' | 'ﻞ' => Some('ل'),
 
-                    // Waw / Fa / Qaf
-                    'ﻭ' | 'ﻮ' | 'ﯜ' => Some('و'),
-                    'ﻑ' | 'ﻔ' | 'ﻒ' | 'ﻓ' => Some('ف'),
-                    'ﻕ' | 'ﻘ' | 'ﻖ' => Some('ق'),
+                    // Meem
+                    'ﻣ' | 'ﻤ' | 'ﻢ' | 'ﻡ' => Some('م'),
 
-                    // Mem
-                    'ﻣ' | 'ﻤ' => Some('م'),
+                    // Ha
+                    'ﻫ' | 'ﻬ' | 'ﻪ' | 'ﻩ' | 'ﮤ' | 'ﮦ' => Some('ه'),
 
-                    // Wow
-                    'ﯛ' => Some('و'),
+                    // Waw
+                    'ﻭ' | 'ﻮ' | 'ﯜ' | 'ﯛ' => Some('و'),
+
                     _ => None,
                 };
 
@@ -156,6 +176,7 @@ pub fn all_letters() -> [Vec<Arc<Letter>>; 2] {
         }
     }
 
+    // FIXME: should be deleted BTW
     // Special Characters also :)
     fake_letters.push(Letter::new('£', real_map.get(&'ك').cloned()));
     fake_letters.push(Letter::new('؏', real_map.get(&'ع').cloned()));
@@ -180,7 +201,7 @@ pub fn clear_message(letters: &[RefLetter], message: String) -> Option<String> {
     }
 
     // Efficient String
-    let mut cleared_string = String::with_capacity(message.len());
+    let mut cleared_string = String::with_capacity(message.len() + 20);
 
     for c in message.chars() {
         match c {
@@ -189,9 +210,13 @@ pub fn clear_message(letters: &[RefLetter], message: String) -> Option<String> {
                 cleared_string.push('ا');
                 continue;
             },
-            '(' | ')' | '{' | '}' | 
-            '[' | ']' | '<' | '>' |
-            '♭' | '♡' | '☜' | '☞' => {
+            '(' | ')' | '{' | '}' | '[' | 
+            ']' | '<' | '>' |
+            // '♭' | '♡' | '☜' | '☞' |
+            '\u{1F300}'..='\u{1FAFF}'   |   // Most of emojies
+            '\u{1F1E6}'..='\u{1F1FF}'   |   // Flags (Regional Indicators 🇦-🇿)
+            '\u{25A0}'..='\u{27BF}'         // Dingbats (✅, ✉️, ✂️)
+            => {
                 cleared_string.push(' ');
                 continue;
             },
@@ -203,6 +228,18 @@ pub fn clear_message(letters: &[RefLetter], message: String) -> Option<String> {
             },
             'ﻼ' | 'ﻹ' | 'ﻷ' | 'ﻶ' => {
                 cleared_string.push_str("لا");
+                continue;
+            },
+            '𝔖' => {
+                cleared_string.push('س');
+                continue;
+            },
+            'ℋ' => {
+                cleared_string.push('ح');
+                continue;
+            },
+            'ℳ' => {
+                cleared_string.push('م');
                 continue;
             }
             _ => ()
@@ -246,9 +283,12 @@ fn is_removable(c: char) -> bool {
         // 5. Small high marks/decorations
         '\u{06D6}'..='\u{06ED}' |
         '\u{08D3}'..='\u{08FF}' |
-        // 6. Tatweel (Kashida)
+        '\u{0300}'..='\u{036F}' |
+        // 6. for emojis hidden colorizer
+        '\u{FE00}'..='\u{FE0F}' |
+        // 7. Tatweel (Kashida)
         'ـ'                     | 
-        // 7. Arabic Punctuation
+        // 8. Arabic Punctuation
         '،' | // Arabic Comma (U+060C)
         '؛' | // Arabic Semicolon (U+061B)
         '؟'   // Arabic Question Mark (U+061F)
