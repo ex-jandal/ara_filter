@@ -188,6 +188,10 @@ pub fn clear_message(letters: &[RefLetter], message: String) -> Option<String> {
             continue
         }
 
+        if c == 'آ' {
+            cleared_string.push('ا');
+            continue;
+        }
         // HANDLE MACRO-SYMBOLS (Like the Bismillah)
         if c as u32 == 0xFDFD {
             // I can just skip it or rewrite it..
@@ -219,13 +223,18 @@ fn is_removable(c: char) -> bool {
         '\u{0670}'              |
         '\u{06DC}'              |
 
-        // U+200C (ZWNJ), U+200D (ZWJ), U+200E/F (Direction marks), U+FEFF (BOM)
+        // 2. U+200C (ZWNJ), U+200D (ZWJ), 
+        // 3. U+200E/F (Direction marks), 
+        // 4. U+FEFF (BOM)
         '\u{2000}'..='\u{200F}' |
         '\u{FEFF}'              |
         '\u{061C}'              |
-        // 2. Tatweel (Kashida)
+        // 5. Small high marks/decorations
+        '\u{06D6}'..='\u{06ED}' |
+        '\u{08D3}'..='\u{08FF}' |
+        // 6. Tatweel (Kashida)
         'ـ'                     | 
-        // 3. Arabic Punctuation
+        // 7. Arabic Punctuation
         '،' | // Arabic Comma (U+060C)
         '؛' | // Arabic Semicolon (U+061B)
         '؟'   // Arabic Question Mark (U+061F)
