@@ -190,7 +190,8 @@ pub fn clear_message(letters: &[RefLetter], message: String) -> Option<String> {
                 continue;
             },
             '(' | ')' | '{' | '}' | 
-            '[' | ']' | '<' | '>' => {
+            '[' | ']' | '<' | '>' |
+            '♭' | '♡' | '☜' | '☞' => {
                 cleared_string.push(' ');
                 continue;
             },
@@ -253,7 +254,4 @@ fn is_removable(c: char) -> bool {
         '؟'   // Arabic Question Mark (U+061F)
     ) || c.is_ascii_punctuation() // 4. Standard Punctuation (., ! : etc.)
       || c == '»'
-      || c == '☜'
-      || c == '☞'
-      || c == '♡'
 }
