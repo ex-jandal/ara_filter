@@ -133,7 +133,7 @@ pub fn all_letters() -> [Vec<Arc<Letter>>; 2] {
                     'ﻚ' | 'ﻜ' | 'ﻙ' | 'ﯖ' | 'ﮝ' => Some('ك'),
                     'ﻂ' => Some('ط'),
                     'ﻇ' => Some('ظ'),
-                    'ڵ' | 'ﻝ' | 'ﻠ' | 'ﻟ' | 'ﻞ' | 'ﻼ' | 'ﻹ' | 'ﻷ' | 'ﻶ' => Some('ل'),
+                    'ڵ' | 'ﻝ' | 'ﻠ' | 'ﻟ' | 'ﻞ' => Some('ل'),
 
                     // Waw / Fa / Qaf
                     'ﻭ' | 'ﻮ' | 'ﯜ' => Some('و'),
@@ -200,6 +200,10 @@ pub fn clear_message(letters: &[RefLetter], message: String) -> Option<String> {
                 cleared_string.push_str("بسم الله الرحمن الرحيم");
                 continue;
             },
+            'ﻼ' | 'ﻹ' | 'ﻷ' | 'ﻶ' => {
+                cleared_string.push_str("لا");
+                continue;
+            }
             _ => ()
         }
 
