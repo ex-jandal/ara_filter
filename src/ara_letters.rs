@@ -211,7 +211,7 @@ pub fn clear_message(letters: &[RefLetter], message: String) -> Option<String> {
                 continue;
             },
             '(' | ')' | '{' | '}' | '[' | 
-            ']' | '<' | '>' |
+            ']' | '<' | '>' | '∆' |
             // '♭' | '♡' | '☜' | '☞' |
             '\u{1F300}'..='\u{1FAFF}'   |   // Most of emojies
             '\u{1F1E6}'..='\u{1F1FF}'   |   // Flags (Regional Indicators 🇦-🇿)
@@ -230,6 +230,10 @@ pub fn clear_message(letters: &[RefLetter], message: String) -> Option<String> {
                 cleared_string.push_str("لا");
                 continue;
             },
+            'טּ' => {
+                cleared_string.push('ن');
+                continue;
+            }
             '𝔖' => {
                 cleared_string.push('س');
                 continue;
