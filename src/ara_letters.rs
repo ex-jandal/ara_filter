@@ -295,7 +295,9 @@ fn is_removable(c: char) -> bool {
         // 8. Arabic Punctuation
         '،' | // Arabic Comma (U+060C)
         '؛' | // Arabic Semicolon (U+061B)
-        '؟'   // Arabic Question Mark (U+061F)
+        '؟' | // Arabic Question Mark (U+061F)
+        '٪' |
+        '%'
     ) || c.is_ascii_punctuation() // 4. Standard Punctuation (., ! : etc.)
       || c == '»'
 }
